@@ -1,0 +1,6 @@
+# Ignore shell script generated files
+env_vars.sh
+*.log
+*.out
+*.pid
+*.sock

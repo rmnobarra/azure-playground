@@ -1,0 +1,14 @@
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/bin/Debug/net8.0/blob-console-app
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/bin/Debug/net8.0/blob-console-app.deps.json
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/bin/Debug/net8.0/blob-console-app.runtimeconfig.json
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/bin/Debug/net8.0/blob-console-app.dll
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/bin/Debug/net8.0/blob-console-app.pdb
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.GeneratedMSBuildEditorConfig.editorconfig
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.AssemblyInfoInputs.cache
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.AssemblyInfo.cs
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.csproj.CoreCompileInputs.cache
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.dll
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/refint/blob-console-app.dll
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.pdb
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/blob-console-app.genruntimeconfig.cache
+/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/Debug/net8.0/ref/blob-console-app.dll

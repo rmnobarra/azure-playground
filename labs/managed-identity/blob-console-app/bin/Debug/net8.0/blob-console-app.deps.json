@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "blob-console-app/1.0.0": {
+        "runtime": {
+          "blob-console-app.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "blob-console-app/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
