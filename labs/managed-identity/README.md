@@ -76,7 +76,7 @@ graph TD;
 
         AKS -->|kubectl| ServiceAccount[Service Account]
         ServiceAccount --> Pod[Pod: blob-lab]
-        ServiceAccount --> Deployment[Deployment: blob-lab ".net app with msal libs"]
+        ServiceAccount --> Deployment[Deployment: blob-lab: .net app with msal libs]
         Pod -->|Image| ACR
         Pod -->|Access| StorageAccount
         Deployment --> Pod
