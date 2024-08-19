@@ -4,3 +4,10 @@ env_vars.sh
 *.out
 *.pid
 *.sock
+
+# Ignore .NET project directories
+**/bin/
+**/obj/
+**/bin*/
+**/obj*/
+

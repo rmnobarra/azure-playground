@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("blob-console-app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b76215948e3795c045429df66b5fb5fe91e3b444")]
 [assembly: System.Reflection.AssemblyProductAttribute("blob-console-app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("blob-console-app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
