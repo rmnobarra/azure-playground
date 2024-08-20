@@ -40,6 +40,7 @@ az aks create -g $RG -n $CLUSTER_NAME \
 --node-count 1 \
 --enable-oidc-issuer \
 --enable-workload-identity \
+--enable-app-routing \
 --generate-ssh-keys
 
 echo "Obtendo credenciais do AKS..."
@@ -124,29 +125,7 @@ az acr build -t blob-lab -r $ACR_NAME .
 echo "Associando ACR ao cluster AKS..."
 az aks update -g $RG -n $CLUSTER_NAME --attach-acr $ACR_NAME
 
-echo "Criando Workloads no Cluster AKS..."
-
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Pod
-metadata:
-  name: blob-lab
-  namespace: default
-  labels:
-    azure.workload.identity/use: "true"  
-spec:
-  serviceAccountName: $PREFIX-sa
-  containers:
-    - image: ${ACR_NAME}.azurecr.io/blob-lab
-      name: blob-lab
-      env:
-      - name: STORAGE_ACCT_NAME
-        value: ${STORAGE_ACCT_NAME}
-      - name: CONTAINER_NAME
-        value: data      
-  nodeSelector:
-    kubernetes.io/os: linux
-EOF
+echo "Criando Workload blob console no Cluster AKS..."
 
 cat <<EOF | kubectl apply -f -
 apiVersion: apps/v1
@@ -180,9 +159,95 @@ spec:
         kubernetes.io/os: linux
 EOF
 
+echo "Entrando no diretório 'BlobApi'..."
+cd ../BlobApi
+
+echo "Construindo e enviando imagem para o ACR..."
+az acr build -t blob-api -r $ACR_NAME .
+
+echo "Criando Workload blob API no Cluster AKS..."
+
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blob-api
+  namespace: default
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blob-api
+  template:
+    metadata:
+      labels:
+        app: blob-api
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: $PREFIX-sa
+      containers:
+        - image: ${ACR_NAME}.azurecr.io/blob-api
+          name: blob-api
+          env:
+          - name: STORAGE_ACCT_NAME
+            value: ${STORAGE_ACCT_NAME}
+          - name: CONTAINER_NAME
+            value: data
+          - name: PORT
+            value: "5001"
+          ports: 
+            - containerPort: 5001
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blob-api-service
+  namespace: default
+spec:
+  selector:
+    app: blob-api
+  ports:
+    - name: http         
+      protocol: TCP
+      port: 80
+      targetPort: 5001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blob-api-ingress
+  namespace: default
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: ""
+    http:
+      paths:
+      - backend:
+          service:
+            name: blob-api-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+EOF
+
+
 echo "Aguardando 30 segundos para o Pod iniciar..."
 sleep 30
 
-echo "Verificando logs do Pod..."
+echo "Verificando logs do Pod no workdload 1..."
 
-kubectl logs -f `kubectl get pods --selector=app=blob-lab --output=jsonpath='{.items[0].metadata.name}'`
+timeout 30s kubectl logs -f `kubectl get pods --selector=app=blob-lab --output=jsonpath='{.items[0].metadata.name}'`
+
+echo "Verificando logs do Pod no workdload 2..."
+
+curl `kubectl get ingress blob-api-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`/api/blobs | jq
+
+# troubleshooting
+#echo "Encaminhando a porta para o deploy blob-api..."
+#kubectl port-forward deployment/blob-api 5001:5001 &

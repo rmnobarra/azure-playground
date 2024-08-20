@@ -4,11 +4,16 @@ using System;
 using System.IO;
 using Azure.Identity;
 using System.Threading.Tasks;
+using Azure.Core.Diagnostics;
+using System.Diagnostics.Tracing;
+
 
 class Program
 {
     static async Task Main(string[] args)
     {
+        using AzureEventSourceListener listener = AzureEventSourceListener.CreateConsoleLogger(EventLevel.Verbose);
+
         // Get Storage Account Name
         string? storageAcctName = Environment.GetEnvironmentVariable("STORAGE_ACCT_NAME");
         string? containerName = Environment.GetEnvironmentVariable("CONTAINER_NAME");

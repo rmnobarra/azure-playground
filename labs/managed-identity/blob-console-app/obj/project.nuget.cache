@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "w8SKDov3gGw=",
+  "dgSpecHash": "qJDs2545Cho=",
   "success": true,
-  "projectFilePath": "/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/blob-console-app.csproj",
+  "projectFilePath": "/home/rmnobarra/workspace/dev/azure-playground/labs/managed-identity/blob-console-app/blob-console-app.csproj",
   "expectedPackageFiles": [
     "/home/rmnobarra/.nuget/packages/azure.core/1.41.0/azure.core.1.41.0.nupkg.sha512",
     "/home/rmnobarra/.nuget/packages/azure.identity/1.12.0/azure.identity.1.12.0.nupkg.sha512",

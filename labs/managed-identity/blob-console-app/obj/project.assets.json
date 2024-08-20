@@ -780,11 +780,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/blob-console-app.csproj",
+      "projectUniqueName": "/home/rmnobarra/workspace/dev/azure-playground/labs/managed-identity/blob-console-app/blob-console-app.csproj",
       "projectName": "blob-console-app",
-      "projectPath": "/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/blob-console-app.csproj",
+      "projectPath": "/home/rmnobarra/workspace/dev/azure-playground/labs/managed-identity/blob-console-app/blob-console-app.csproj",
       "packagesPath": "/home/rmnobarra/.nuget/packages/",
-      "outputPath": "/home/rmnobarra/workspace/dev/lab-azure-aks-backup/blob-console-app/obj/",
+      "outputPath": "/home/rmnobarra/workspace/dev/azure-playground/labs/managed-identity/blob-console-app/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/rmnobarra/.nuget/NuGet/NuGet.Config"

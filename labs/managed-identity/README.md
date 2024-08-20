@@ -1,9 +1,11 @@
 # Managed Identity
 
-Configura um ambiente Kubernetes no Azure, incluindo a configuração de um cluster AKS, identidade gerenciada, conta de armazenamento e integração com o Azure Container Registry (ACR) e faz o deployment de uma aplicação .net que envia arquivos para um container dentro da storage account.
+Configura um ambiente Kubernetes no Azure, incluindo a configuração de um cluster AKS, identidade gerenciada, conta de armazenamento e integração com o Azure Container Registry (ACR). e faz o deployment de uma aplicação .net que envia arquivos para um container dentro da storage account.
 
 Demais funcionalidades do projeto:
 
+* Aplicação .net 8 que envia arquivos para um container dentro uma storage account.
+* Aplicação web que lista todos os arquivos dentro um container em uma storage account.
 * Injeta falhas no ambiente para validar conhecimento.
 * Verifica se a solução proposta irá resolver o problema proposto.
 * Destroi o ambiente após o uso.
@@ -16,6 +18,7 @@ Antes de começar, certifique-se de ter os seguintes pré-requisitos instalados:
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - Conta no [Azure](https://azure.microsoft.com/)
+- Processador de JSON [jq](https://jqlang.github.io/jq/)
 
 ## Configuração
 
@@ -75,10 +78,25 @@ graph TD;
         ACR --> AKS
 
         AKS -->|kubectl| ServiceAccount[Service Account]
-        ServiceAccount --> Pod[Pod: blob-lab]
-        ServiceAccount --> Deployment[Deployment: blob-lab: .net app with msal libs]
-        Pod -->|Image| ACR
-        Pod -->|Access| StorageAccount
-        Deployment --> Pod
+        ServiceAccount --> PodBlobLab[Pod: blob-lab]
+        ServiceAccount --> DeploymentBlobLab[Deployment: blob-lab]
+        ServiceAccount --> PodBlobAPI[Pod: blob-api]
+        ServiceAccount --> DeploymentBlobAPI[Deployment: blob-api]
+        
+        PodBlobLab -->|Image| ACR
+        PodBlobLab -->|Access| StorageAccount
+        DeploymentBlobLab --> PodBlobLab
+        
+        PodBlobAPI -->|Image| ACR
+        PodBlobAPI -->|Access| StorageAccount
+        DeploymentBlobAPI --> PodBlobAPI
+        
+        subgraph Networking
+            Service[Service: blob-api-service]
+            Ingress[Ingress: blob-api-ingress]
+            
+            PodBlobAPI --> Service
+            Service --> Ingress
+        end
     end
 ```
